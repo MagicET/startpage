@@ -1,5 +1,5 @@
 <script setup>
-  import { ref, onMounted } from 'vue'
+  import { ref, onMounted, onBeforeUnmount } from 'vue'
   import { supabase } from '../lib/supabaseClient'
 
   const bookmarks = ref([])
@@ -8,19 +8,43 @@
   async function getBookmarks() {
     const { data, error } = await supabase.from('bookmarks').select()
     bookmarks.value = data
-    console.log(bookmarks.value)
   }
 
   async function sendBookmark() {
-
-    const { error } = await supabase
+    await supabase
       .from('bookmarks')
       .insert({ url: input.value, icon: "🌐" })
   }
 
+  function subscribeBookmark() {
+    //マウントされたら初回に取得する
+    getBookmarks()
+    const { data, error } = supabase
+      .channel('supabase_realtime')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'bookmarks' }, payload => {
+        console.log('Change received!', payload)
+        /*if (payload.eventType = "INSERT") {
+          bookmarks.value.push(payload.new)
+        } else if (payload.eventType = "DELETE") {
+          bookmarks.value.splice(bookmarks.value.findIndex((bookmark) => bookmark.id = payload.old.id), 1)
+        }*/
+        getBookmarks()
+      })
+      .subscribe()
+  }
+
+  async function unsubscribeBookmark() {
+    const { error } = await supabase.removeAllChannels()
+    console.log("Unsubscribed", error)
+  }
+
   onMounted(() => {
     console.log("Mounted")
-    getBookmarks()
+    //getBookmarks()
+    subscribeBookmark()
+  })
+  onBeforeUnmount(() => {
+    unsubscribeBookmark()
   })
 </script>
 
