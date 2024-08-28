@@ -45,6 +45,7 @@ loadBookmarks()
     .homeButton {
         margin-top: 0.5em;
         margin-left: 0.5em;
+        width: fit-content;
     }
     .contents {
         padding: 0 1em;
