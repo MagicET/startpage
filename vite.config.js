@@ -6,10 +6,9 @@ import vue from '@vitejs/plugin-vue'
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
-    outDir: 'docs',
-    assetsDir: './'
+    outDir: 'docs'
   },
-  base: "./",
+  base: "/startpage/",
   plugins: [
     vue(),
   ],
