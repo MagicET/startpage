@@ -26,7 +26,8 @@ const computedUrl = computed(() => {
 });
 
 function deleteUrlBox() {
-  urlBox.value = ""
+  urlBox.value = "";
+  saveUrlBox();
 }
 
 const isUrlBoxDeletable = computed(() => {
@@ -50,11 +51,9 @@ const isReadingListUnpushable = computed(() => {
 })
 
 
-const readingLists = ref([
-]);
+const readingLists = ref([]);
 
-const bookmarks = ref([
-]);
+const bookmarks = ref([]);
 
 
 function setBookmark() {
