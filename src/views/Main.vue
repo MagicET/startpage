@@ -141,6 +141,9 @@ loadReadingLists()
     width: 100vw;
     max-height: 100vh;
     grid-template-rows: minmax(0, auto) minmax(0, 1fr);
+    box-sizing: border-box;
+    padding: 3vh;
+    padding-bottom: 0;
   }
   input::placeholder, button:disabled {
     color: rgba(var(--bodyColorValue), 0.5);
@@ -156,14 +159,15 @@ loadReadingLists()
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, auto) minmax(0, auto) minmax(0, auto) minmax(0, auto) minmax(0, auto);
     align-items: center;
-    margin: 3vh auto;
-    width: 50%;
-    min-width: 16em;
+    margin: 0 auto 3vh auto;
+    width: 100%;
+    max-width: 40em;
     padding: 0.5em 0.8em;
     border: none;
     border-radius: 100000px;
     font-size: 1.2em;
     background-color: var(--secBgColor);
+    box-sizing: border-box;
   }
   .transparent {
     outline: none;
@@ -185,7 +189,8 @@ loadReadingLists()
   }
 
   .personalUrls {
-    width: 80%;
+    width: 100%;
+    max-width: 36em;
     margin: 0 auto;
     overflow-y: scroll;
     scrollbar-width: none;
@@ -194,8 +199,8 @@ loadReadingLists()
   .bookmarks {
     -ms-overflow-style: none;
     display: grid;
-    margin-top: 1em;
-    margin-bottom: 10vw;
+    margin-top: 0.5em;
+    margin-bottom: 3vh;
     grid-template-columns: repeat(auto-fit, minmax(5em, 1fr));
     column-gap: 0.5em;
     grid-auto-rows: auto;
@@ -204,10 +209,13 @@ loadReadingLists()
   }
   
   .readingLists {
-    max-height: 5em;
-    padding: 0 0.1em;
+    background-color: var(--secBgColor);
+    max-height: 20vh;
+    padding: 0.8em 1em;
+    border-radius: 1em;
     overflow-x: clip;
     overflow-y: auto;
+    box-sizing: border-box;
   }
 
 
