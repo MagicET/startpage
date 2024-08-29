@@ -200,6 +200,8 @@ loadReadingLists()
     grid-template-columns: repeat(auto-fit, minmax(5em, 1fr));
     column-gap: 0.5em;
     grid-auto-rows: auto;
+    row-gap: 0.5em;
+    overflow-x: clip;
   }
   
   .readingLists {
