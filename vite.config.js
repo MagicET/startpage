@@ -8,7 +8,7 @@ export default defineConfig({
   build: {
     outDir: 'docs'
   },
-  base: "/startpage/",
+  base: "./",
   plugins: [
     vue(),
   ],
