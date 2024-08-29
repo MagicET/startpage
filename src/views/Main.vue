@@ -205,7 +205,8 @@ loadReadingLists()
   .readingLists {
     max-height: 5em;
     padding: 0 0.1em;
-    overflow: scroll;
+    overflow-x: clip;
+    overflow-y: auto;
   }
 
 

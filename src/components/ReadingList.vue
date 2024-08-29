@@ -18,13 +18,22 @@
 </script>
 
 <style>
-    .deleteIcon {
-        font-size: 1em;
-    }
+  .readingList {
+    display: grid;
+    grid-template-columns: 1fr auto;
+  }
+  .readingList a {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .deleteIcon {
+      font-size: 1em;
+  }
 </style>
 
 <template>
-  <div>
+  <div class="readingList">
     <a :href="computedUrl">{{ url }}</a>
     <button @click="$emit('delete')"><span class="material-symbols-outlined deleteIcon">
         delete
