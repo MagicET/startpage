@@ -6,6 +6,17 @@ import ReadingList from '../components/ReadingList.vue';
 
 const urlBox = ref("");
 
+function submitUrlBox(e) {
+  if (e.keyCode == 13) {
+    const domainPart = computedUrl.value.split("/")[2];
+      if (domainPart.substr(-4).includes(".") && domainPart.substr(-1) != "." && !urlBox.value.includes(" ")) {
+        window.location.assign(computedUrl.value)
+      } else {
+        window.location.assign(search.value);
+      }
+  }
+}
+
 function saveUrlBox() {
   localStorage.setItem("urlBox", urlBox.value);
 }
@@ -254,7 +265,7 @@ loadReadingLists()
 <template>
   <div class="main">
     <div class="toolbar">
-      <input type="text" class="transparent" v-model="urlBox" placeholder="Type URL" @input="saveUrlBox"/>
+      <input type="text" class="transparent" v-model="urlBox" placeholder="Type URL" @input="saveUrlBox" @keydown="submitUrlBox"/>
 
       <button @click="deleteUrlBox" v-if="isUrlBoxDeletable">
         <span class="material-symbols-outlined" id="urlBoxDelete">
