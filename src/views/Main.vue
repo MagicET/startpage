@@ -6,6 +6,17 @@ import ReadingList from '../components/ReadingList.vue';
 
 const urlBox = ref("");
 
+function submitUrlBox(e) {
+  if (e.keyCode == 13) {
+    const domainPart = computedUrl.value.split("/")[2];
+      if (domainPart.substr(-4).includes(".") && domainPart.substr(-1) != "." && !urlBox.value.includes(" ")) {
+        window.location.assign(computedUrl.value);
+      } else {
+        window.location.assign(search.value);
+      }
+  }
+}
+
 function saveUrlBox() {
   localStorage.setItem("urlBox", urlBox.value);
 }
@@ -85,13 +96,19 @@ function loadBookmarks() {
 
 
 function addReadingList() {
-  readingLists.value.push(urlBox.value);
+  readingLists.value.splice(0, 0, urlBox.value);
   saveReadingLists()
 }
 
 function deleteReadingList(url) {
   readingLists.value = readingLists.value.filter((readingList) => readingList != url);
   saveReadingLists()
+}
+
+function moveReadingListTop(url) {
+  deleteReadingList(url);
+  readingLists.value.splice(0, 0, url);
+  saveReadingLists();
 }
 
 function saveReadingLists() {
@@ -254,7 +271,7 @@ loadReadingLists()
 <template>
   <div class="main">
     <div class="toolbar">
-      <input type="text" class="transparent" v-model="urlBox" placeholder="Type URL" @input="saveUrlBox"/>
+      <input type="text" class="transparent" v-model="urlBox" placeholder="Type URL" @input="saveUrlBox" @keydown="submitUrlBox"/>
 
       <button @click="deleteUrlBox" v-if="isUrlBoxDeletable">
         <span class="material-symbols-outlined" id="urlBoxDelete">
@@ -288,7 +305,7 @@ loadReadingLists()
     </div>
     <div class="personalUrls">
       <div class="readingLists">
-        <ReadingList v-for="readingList in readingLists" :key="readingList" :url="readingList" @delete="deleteReadingList(readingList)"></ReadingList>
+        <ReadingList v-for="readingList in readingLists" :key="readingList" :url="readingList" @delete="deleteReadingList(readingList)" @moveUp="moveReadingListTop(readingList)"></ReadingList>
       </div>
       <div class="bookmarks">
         <Bookmark class="bookmark" v-for="bookmark in bookmarks" :key="bookmark.text" :name="bookmark.name" :url="bookmark.text" :icon="bookmark.icon" @delete="deleteBookmark(bookmark.text)" @update="openBookmarkDialog(bookmark.text, bookmark.icon, bookmark.name)"></Bookmark>

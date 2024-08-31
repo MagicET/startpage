@@ -34,7 +34,7 @@
 
 <template>
   <div class="readingList">
-    <a :href="computedUrl">{{ url }}</a>
+    <a :href="computedUrl" @click="$emit('moveUp')">{{ url }}</a>
     <button @click="$emit('delete')"><span class="material-symbols-outlined deleteIcon">
         delete
     </span></button>
