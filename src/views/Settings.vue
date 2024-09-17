@@ -41,7 +41,7 @@ loadBookmarks()
 
 </script>
 
-<style>
+<style scoped>
     .homeButton {
         margin-top: 0.5em;
         margin-left: 0.5em;
