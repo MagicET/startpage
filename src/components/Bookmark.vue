@@ -17,7 +17,7 @@
   const emit = defineEmits(["delete", "update"])
 </script>
 
-<style>
+<style scoped>
   .bookmarkIcon {
     border: none;
     border-radius: 20%;
