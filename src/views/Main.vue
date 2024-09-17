@@ -105,6 +105,16 @@ function deleteReadingList(url) {
   saveReadingLists()
 }
 
+let openedReadingList = ref("")
+
+function changeOpenedReadingList(url) {
+  if (openedReadingList.value == url) {
+    openedReadingList.value = "";
+  } else {
+    openedReadingList.value = url;
+  }
+}
+
 function moveReadingListTop(url) {
   deleteReadingList(url);
   readingLists.value.splice(0, 0, url);
@@ -152,7 +162,7 @@ loadUrlBox()
 loadReadingLists()
 </script>
 
-<style>
+<style scoped>
   .main {
     display: grid;
     width: 100vw;
@@ -305,7 +315,7 @@ loadReadingLists()
     </div>
     <div class="personalUrls">
       <div class="readingLists">
-        <ReadingList v-for="readingList in readingLists" :key="readingList" :url="readingList" @delete="deleteReadingList(readingList)" @moveUp="moveReadingListTop(readingList)"></ReadingList>
+        <ReadingList v-for="readingList in readingLists" :key="readingList" :url="readingList" :opened="openedReadingList" @delete="deleteReadingList(readingList)" @moveUp="moveReadingListTop(readingList)" @open="changeOpenedReadingList(readingList)"></ReadingList>
       </div>
       <div class="bookmarks">
         <Bookmark class="bookmark" v-for="bookmark in bookmarks" :key="bookmark.text" :name="bookmark.name" :url="bookmark.text" :icon="bookmark.icon" @delete="deleteBookmark(bookmark.text)" @update="openBookmarkDialog(bookmark.text, bookmark.icon, bookmark.name)"></Bookmark>
