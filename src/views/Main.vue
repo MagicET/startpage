@@ -8,6 +8,9 @@ const urlBox = ref("");
 
 function submitUrlBox(e) {
   if (e.keyCode == 13) {
+    if (isReadingListUnpushable.value) {
+      moveReadingListTop(urlBox.value);
+    }
     const domainPart = computedUrl.value.split("/")[2];
       if (domainPart.substr(-4).includes(".") && domainPart.substr(-1) != "." && !urlBox.value.includes(" ")) {
         window.location.assign(computedUrl.value);
@@ -239,7 +242,7 @@ loadReadingLists()
     background-color: var(--secBgColor);
     max-height: 20vh;
     padding: 0.8em 1em;
-    border-radius: 1em;
+    border-radius: 2em;
     overflow-x: clip;
     overflow-y: auto;
     box-sizing: border-box;
