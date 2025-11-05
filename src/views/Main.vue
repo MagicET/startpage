@@ -242,7 +242,7 @@ loadReadingLists()
     background-color: var(--secBgColor);
     max-height: 20vh;
     padding: 0.8em 1em;
-    border-radius: 1em;
+    border-radius: 2em;
     overflow-x: clip;
     overflow-y: auto;
     box-sizing: border-box;
