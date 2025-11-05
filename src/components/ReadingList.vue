@@ -16,6 +16,13 @@
     }
   });
 
+  const displayUrl = computed(() => {
+    if (props.opened == props.url) {
+      return props.url;
+    }
+    return props.url.split("//").pop();
+  })
+
   const openedCoundition = computed(() => {
     if(props.opened == props.url) {
       return "opened"
@@ -56,7 +63,7 @@
     <button @click="$emit('open')"><span class="material-symbols-outlined">
       {{ openIcon }}
     </span></button>
-    <a :href="computedUrl" @click="$emit('moveUp')">{{ url }}</a>
+    <a :href="computedUrl" @click="$emit('moveUp')">{{ displayUrl }}</a>
     <button v-if="props.opened == props.url" @click="$emit('delete')"><span class="material-symbols-outlined">
         delete
     </span></button>

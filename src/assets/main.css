@@ -53,9 +53,9 @@ body {
   margin: 0;
 }
 .dialogTextField {
-  border-radius: 0.5em;
+  border-radius: 5em;
   width: auto;
-  padding: 0.5em;
+  padding: 0.5em 0.8em;
   background-color: var(--secBgColor);
 }
 .dialogTextField::placeholder {
