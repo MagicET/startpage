@@ -242,42 +242,39 @@ loadReadingLists()
     background-color: var(--secBgColor);
     max-height: 20vh;
     padding: 0.8em 1em;
-    border-radius: 2em;
+    border-radius: 1.5rem;
     overflow-x: clip;
     overflow-y: auto;
     box-sizing: border-box;
   }
 
-
-  .settingButton {
-    position: absolute;
-    top: 0.5em;
-    right: 0.5em;
-  }
-
-  dialog {
+  #bookmarkEditingDialog {
     border: none;
     background-color: var(--priBgColor);
-    border-radius: 1em;
+    border-radius: 1.5rem;
     padding: 1em;
     color: var(--bodyColor);
-  }
-  dialog::backdrop {
+
+    &::backdrop {
     background-color: #0008;
   }
-  .bookmarkEditTypeBox {
+
+    .fields{
     display: grid;
     grid-template-columns: minmax(0, auto) minmax(0, auto);
     row-gap: 0.5em;
     column-gap: 1em;
   }
+
+    .buttonRibbon {
+      padding-top: 1em;
+      display: grid;
+      grid-template-columns: minmax(0, auto) minmax(0, 1fr) minmax(0, auto);
+
   .deleteButton {
     color: #f44336;
   }
-  #buttonRibbon {
-    padding-top: 1em;
-    display: grid;
-    grid-template-columns: minmax(0, auto) minmax(0, 1fr) minmax(0, auto)
+    }
   }
 </style>
 
@@ -332,17 +329,17 @@ loadReadingLists()
     </RouterLink>
   </div>
 
-  <dialog id="bookmarkEditDialog">
+  <dialog id="bookmarkEditingDialog">
     <p style="margin: 0; margin-bottom: 0.5em; text-align: center;">Edit Bookmark</p>
-    <div class="bookmarkEditTypeBox">
-      <label class="dialogLabel">Icon</label>
-      <input type="text" class="dialogTextField" v-model="newIcon">
+    <div class="fields">
+      <label>Icon</label>
+      <input type="text" v-model="newIcon">
       <label class="dialogLabel">Name</label>
-      <input type="text" class="dialogTextField" v-model="newName">
+      <input type="text" v-model="newName">
       <label class="dialogLabel">URL</label>
-      <input type="text" class="dialogTextField" v-model="newUrl">
+      <input type="text" v-model="newUrl">
     </div>
-    <div id="buttonRibbon">
+    <div class="buttonRibbon">
       <button @click="deleteBookmark(editingBookmark)" class="iconButton deleteButton"><span class="material-symbols-outlined">delete</span></button>
       <div></div>
       <button @click="closeBookmarkDialog" class="generalButton">OK</button>

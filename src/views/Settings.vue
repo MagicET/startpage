@@ -68,12 +68,12 @@ loadBookmarks()
         <div class="contents">
             <h1>LocalStorage</h1>
             <div class="typeBox">
-                <label class="dialogLabel">urlBox</label>
-                <input type="text" class="dialogTextField" v-model="urlBox" @input="updateUrlBox">
-                <label class="dialogLabel">readingLists</label>
-                <input type="text" class="dialogTextField" v-model="readingLists" @input="updateReadingLists">
-                <label class="dialogLabel">bookmarks</label>
-                <input type="text" class="dialogTextField" v-model="bookmarks" @input="updateBookmarks">
+                <label>urlBox</label>
+                <input type="text" v-model="urlBox" @input="updateUrlBox">
+                <label>readingLists</label>
+                <input type="text" v-model="readingLists" @input="updateReadingLists">
+                <label>bookmarks</label>
+                <input type="text" v-model="bookmarks" @input="updateBookmarks">
             </div>
         </div>
     </div>

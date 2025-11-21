@@ -4,12 +4,12 @@
     --secBgColor: #E2ECF2;
     --bodyColor: #000;
     --bodyColorValue: 0, 0, 0;
-}
-@media (prefers-color-scheme: dark) {
-    :root {
+
+    @media (prefers-color-scheme: dark) {
         --priBgColor: #141417;
         --secBgColor: #1F1F24;
         --bodyColor: #FFF;
         --bodyColorValue: 255, 255, 255;
     }
 }
+
