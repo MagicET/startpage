@@ -1,114 +1,14 @@
 <script setup>
-import { ref, computed } from 'vue';
-import { RouterLink } from 'vue-router'
+import { inject, ref, computed } from 'vue';
+import UrlBar from '../components/UrlBar.vue';
 import Bookmark from '../components/Bookmark.vue';
 import ReadingList from '../components/ReadingList.vue';
 
-const urlBox = ref("");
+const { urlBox, changeUrlBox } = inject("urlBox");
 
-function submitUrlBox(e) {
-  if (e.keyCode == 13) {
-    if (isReadingListUnpushable.value) {
-      moveReadingListTop(urlBox.value);
-    }
-    const domainPart = computedUrl.value.split("/")[2];
-      if (domainPart.substr(-4).includes(".") && domainPart.substr(-1) != "." && !urlBox.value.includes(" ")) {
-        window.location.assign(computedUrl.value);
-      } else {
-        window.location.assign(search.value);
-      }
-  }
-}
+const { readingLists, addReadingList, deleteReadingList, moveReadingListTop } = inject("readingLists");
 
-function saveUrlBox() {
-  localStorage.setItem("urlBox", urlBox.value);
-}
-
-function loadUrlBox() {
-  const url = localStorage.getItem("urlBox");
-  if(url) {
-    urlBox.value = url
-  }
-}
-
-const computedUrl = computed(() => {
-  if(urlBox.value.includes("http")) {
-    return urlBox.value
-  } else {
-    return "//" + urlBox.value
-  }
-});
-
-function deleteUrlBox() {
-  urlBox.value = "";
-  saveUrlBox();
-}
-
-const isUrlBoxDeletable = computed(() => {
-  return urlBox.value != "";
-})
-
-const search = computed(() => {
-  return "https://www.google.com/search?q=" + urlBox.value
-});
-
-const isBookmarkUnpushable = computed(() => {
-  let result = urlBox.value == ""
-  result = result || bookmarks.value.some((bookmark) => bookmark.text == urlBox.value);
-  return result;
-})
-
-const isReadingListUnpushable = computed(() => {
-  let result = urlBox.value == ""
-  result = result || readingLists.value.includes(urlBox.value);
-  return result;
-})
-
-
-const readingLists = ref([]);
-
-const bookmarks = ref([]);
-
-
-function setBookmark() {
-  let newBookmark = { name: urlBox.value, text: urlBox.value, icon: "🌐" };
-  bookmarks.value.push(newBookmark);
-  saveBookmarks();
-}
-
-function deleteBookmark(url) {
-  const bookmarkEditDialog = document.getElementById("bookmarkEditDialog");
-  bookmarks.value = bookmarks.value.filter((bookmark) => bookmark.text != url);
-  bookmarkEditDialog.close();
-  saveBookmarks();
-}
-
-function saveBookmarks() {
-  localStorage.setItem("bookmarks", JSON.stringify(bookmarks.value));
-}
-
-function loadBookmarks() {
-  const storage = localStorage.getItem("bookmarks");
-  if(storage) {
-    bookmarks.value = JSON.parse(storage)
-  } else {
-    bookmarks.value = [{ name: "Add bookmarks",text: "https://example.com", icon: "🌐" }]
-    saveBookmarks()
-  }
-}
-
-
-function addReadingList() {
-  readingLists.value.splice(0, 0, urlBox.value);
-  saveReadingLists()
-}
-
-function deleteReadingList(url) {
-  readingLists.value = readingLists.value.filter((readingList) => readingList != url);
-  saveReadingLists()
-}
-
-let openedReadingList = ref("")
+let openedReadingList = ref("");
 
 function changeOpenedReadingList(url) {
   if (openedReadingList.value == url) {
@@ -118,25 +18,7 @@ function changeOpenedReadingList(url) {
   }
 }
 
-function moveReadingListTop(url) {
-  deleteReadingList(url);
-  readingLists.value.splice(0, 0, url);
-  saveReadingLists();
-}
-
-function saveReadingLists() {
-  localStorage.setItem("readingLists", JSON.stringify(readingLists.value));
-}
-
-function loadReadingLists() {
-  const storage = localStorage.getItem("readingLists");
-  if(storage) {
-    readingLists.value = JSON.parse(storage)
-  } else {
-    readingLists.value = ["https://example.com"]
-    saveReadingLists()
-  }
-}
+const { bookmarks, addBookmark, changeBookmark, deleteBookmark } = inject("bookmarks");
 
 const editingBookmark = ref("");
 const newUrl = ref("");
@@ -153,16 +35,10 @@ function openBookmarkDialog(url, icon, name) {
 function closeBookmarkDialog() {
   const newBookmark = { name: newName.value, text: newUrl.value, icon: newIcon.value };
   const bookmarkIndex = bookmarks.value.findIndex((bookmark) => bookmark.text == editingBookmark.value);
-  bookmarks.value[bookmarkIndex] = newBookmark;
-  saveBookmarks();
+  changeBookmark(bookmarkIndex, newBookmark);
   const bookmarkEditDialog = document.getElementById("bookmarkEditDialog");
   bookmarkEditDialog.close();
 }
-
-
-loadBookmarks()
-loadUrlBox()
-loadReadingLists()
 </script>
 
 <style scoped>
@@ -173,49 +49,7 @@ loadReadingLists()
     grid-template-rows: minmax(0, auto) minmax(0, 1fr);
     box-sizing: border-box;
     padding: 3vh;
-    padding-bottom: 0;
-  }
-  input::placeholder, button:disabled {
-    color: rgba(var(--bodyColorValue), 0.5);
-  }
-  button:disabled span {
-    font-variation-settings:
-      'FILL' 1,
-      'wght' 400,
-      'GRAD' 0,
-      'opsz' 24;
-  }
-  .toolbar {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, auto) minmax(0, auto) minmax(0, auto) minmax(0, auto) minmax(0, auto);
-    align-items: center;
-    margin: 0 auto 3vh auto;
-    width: 100%;
-    max-width: 40em;
-    padding: 0.5em 0.8em;
-    border: none;
-    border-radius: 100000px;
-    font-size: 1.2em;
-    background-color: var(--secBgColor);
-    box-sizing: border-box;
-  }
-  .transparent {
-    outline: none;
-    border: none;
-    background: none;
-    padding: 0.1em 0.2em;
-    margin: 0;
-    border-radius: 0;
-    color: var(--bodyColor);
-  }
-  #urlBoxDelete {
-    font-size: 1.0em;
-    font-variation-settings:
-      'FILL' 1,
-      'wght' 400,
-      'GRAD' 0,
-      'opsz' 24;
-    margin: 0 0.1em
+    padding-bottom: 3em;
   }
 
   .personalUrls {
@@ -256,63 +90,31 @@ loadReadingLists()
     color: var(--bodyColor);
 
     &::backdrop {
-    background-color: #0008;
-  }
+      background-color: #0008;
+    }
 
     .fields{
-    display: grid;
-    grid-template-columns: minmax(0, auto) minmax(0, auto);
-    row-gap: 0.5em;
-    column-gap: 1em;
-  }
+      display: grid;
+      grid-template-columns: minmax(0, auto) minmax(0, auto);
+      row-gap: 0.5em;
+      column-gap: 1em;
+    }
 
     .buttonRibbon {
       padding-top: 1em;
       display: grid;
       grid-template-columns: minmax(0, auto) minmax(0, 1fr) minmax(0, auto);
 
-  .deleteButton {
-    color: #f44336;
-  }
+      .deleteButton {
+        color: #f44336;
+      }
     }
   }
 </style>
 
 <template>
   <div class="main">
-    <div class="toolbar">
-      <input type="text" class="transparent" v-model="urlBox" placeholder="Type URL" @input="saveUrlBox" @keydown="submitUrlBox"/>
-
-      <button @click="deleteUrlBox" v-if="isUrlBoxDeletable">
-        <span class="material-symbols-outlined" id="urlBoxDelete">
-          cancel
-        </span>
-      </button>
-
-      <a :href="computedUrl">
-        <span class="material-symbols-outlined">
-          link
-        </span>
-      </a>
-
-      <a :href="search">
-        <span class="material-symbols-outlined">
-          search
-        </span>
-      </a>
-
-      <button @click="addReadingList" :disabled="isReadingListUnpushable">
-        <span class="material-symbols-outlined">
-          bookmark_add
-        </span>
-      </button>
-
-      <button @click="setBookmark" :disabled="isBookmarkUnpushable">
-        <span class="material-symbols-outlined">
-          star
-        </span>
-      </button>
-    </div>
+    <UrlBar></UrlBar>
     <div class="personalUrls">
       <div class="readingLists">
         <ReadingList v-for="readingList in readingLists" :key="readingList" :url="readingList" :opened="openedReadingList" @delete="deleteReadingList(readingList)" @moveUp="moveReadingListTop(readingList)" @open="changeOpenedReadingList(readingList)"></ReadingList>
@@ -321,12 +123,6 @@ loadReadingLists()
         <Bookmark class="bookmark" v-for="bookmark in bookmarks" :key="bookmark.text" :name="bookmark.name" :url="bookmark.text" :icon="bookmark.icon" @delete="deleteBookmark(bookmark.text)" @update="openBookmarkDialog(bookmark.text, bookmark.icon, bookmark.name)"></Bookmark>
       </div>
     </div>
-
-    <RouterLink to="/settings" class="settingButton">
-      <span class="material-symbols-outlined">
-        settings
-      </span>
-    </RouterLink>
   </div>
 
   <dialog id="bookmarkEditingDialog">
