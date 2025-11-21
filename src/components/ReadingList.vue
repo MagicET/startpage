@@ -42,19 +42,22 @@
   .readingList {
     display: grid;
     grid-template-columns: auto 1fr auto;
-  }
-  .readingList a {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .readingList.opened a {
-    white-space: normal;
-    word-break: break-all;
-    overflow: hidden;
-  }
-  .material-symbols-outlined {
+
+    a {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &.opened a {
+      white-space: normal;
+      word-break: break-all;
+      overflow: hidden;
+    }
+
+    button span {
       font-size: 1em;
+    }
   }
 </style>
 

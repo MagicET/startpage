@@ -13,6 +13,7 @@ button, a, input {
   text-decoration: none;
   font-family: inherit;
 }
+
 .material-symbols-outlined {
   font-variation-settings:
   'FILL' 0,
@@ -28,9 +29,9 @@ button, a, input {
   display: inline-flex;
   vertical-align: middle;
 }
+
 body {
   font-family:
-    Inter,
     -apple-system,
     'BlinkMacSystemFont',
     'Segoe UI',
@@ -52,18 +53,22 @@ body {
   padding: 0;
   margin: 0;
 }
-.dialogTextField {
+
+input[type="text"] {
   border-radius: 5em;
   width: auto;
   padding: 0.5em 0.8em;
   background-color: var(--secBgColor);
+
+  &::placeholder {
+    color: rgba(var(--bodyColorValue), 0.5);
+  }
+
+  label:has(+ &) {
+    line-height: 2.4em;
+  }
 }
-.dialogTextField::placeholder {
-  color: rgba(var(--bodyColorValue), 0.5);
-}
-.dialogLabel {
-  line-height: 2.4em;
-}
+
 .generalButton {
   align-items: center;
   font-size: 1.2em;

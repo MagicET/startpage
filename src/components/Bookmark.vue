@@ -20,7 +20,7 @@
 <style scoped>
   .bookmarkIcon {
     border: none;
-    border-radius: 20%;
+    border-radius: 1.5rem;
     background-color: var(--secBgColor);
     transition: all 0.5s;
     aspect-ratio: 1 / 1;
