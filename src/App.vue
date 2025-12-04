@@ -104,6 +104,12 @@ provide('bookmarks', {
   deleteBookmark
 });
 
+provide('loaders', {
+  loadUrlBox,
+  loadReadingLists,
+  loadBookmarks
+})
+
 const histories = ref([]);
 
 function addHistory(text) {
