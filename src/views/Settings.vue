@@ -1,24 +1,26 @@
 <script setup>
-    import { ref } from 'vue'
+    import { inject, ref } from 'vue'
     import { RouterLink } from 'vue-router';
+
+    const { loadUrlBox, loadReadingLists, loadBookmarks } = inject('loaders');
 
     const urlBox = ref("")
     const readingLists = ref("")
     const bookmarks = ref("")
 
-    function loadUrlBox() {
+    function loadUrlBoxString() {
         const storage = localStorage.getItem("urlBox")
         if(storage) {
             urlBox.value = storage
         }
     }
-    function loadReadingLists() {
+    function loadReadingListsString() {
         const storage = localStorage.getItem("readingLists")
         if(storage) {
             readingLists.value = storage
         }
     }
-    function loadBookmarks() {
+    function loadBookmarksString() {
         const storage = localStorage.getItem("bookmarks")
         if(storage) {
             bookmarks.value = storage
@@ -27,17 +29,20 @@
 
     function updateUrlBox() {
         localStorage.setItem("urlBox", urlBox.value)
+        loadUrlBox()
     }
     function updateReadingLists() {
         localStorage.setItem("readingLists", readingLists.value)
+        loadReadingLists()
     }
     function updateBookmarks() {
         localStorage.setItem("bookmarks", bookmarks.value)
+        loadBookmarks()
     }
 
-    loadUrlBox()
-    loadReadingLists()
-    loadBookmarks()
+    loadUrlBoxString()
+    loadReadingListsString()
+    loadBookmarksString()
 </script>
 
 <style scoped>

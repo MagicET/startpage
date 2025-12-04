@@ -25,19 +25,19 @@ const newUrl = ref("");
 const newIcon = ref("");
 const newName = ref("")
 function openBookmarkDialog(url, icon, name) {
-  const bookmarkEditDialog = document.getElementById("bookmarkEditDialog");
+  const bookmarkEditingDialog = document.getElementById("bookmarkEditingDialog");
   newUrl.value = url;
   newName.value = name;
   newIcon.value = icon;
   editingBookmark.value = url;
-  bookmarkEditDialog.showModal()
+  bookmarkEditingDialog.showModal()
 }
 function closeBookmarkDialog() {
   const newBookmark = { name: newName.value, text: newUrl.value, icon: newIcon.value };
   const bookmarkIndex = bookmarks.value.findIndex((bookmark) => bookmark.text == editingBookmark.value);
   changeBookmark(bookmarkIndex, newBookmark);
-  const bookmarkEditDialog = document.getElementById("bookmarkEditDialog");
-  bookmarkEditDialog.close();
+  const bookmarkEditingDialog = document.getElementById("bookmarkEditingDialog");
+  bookmarkEditingDialog.close();
 }
 </script>
 
