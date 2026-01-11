@@ -20,7 +20,7 @@
     if (props.opened == props.url) {
       return props.url;
     }
-    return props.url.split("//").pop();
+    return decodeURI(props.url.split("//").pop());
   })
 
   const openedCoundition = computed(() => {
