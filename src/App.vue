@@ -33,6 +33,7 @@ function addReadingList(url) {
 function deleteReadingList(url) {
   readingLists.value = readingLists.value.filter((readingList) => readingList != url);
   saveReadingLists();
+  addHistory(url);
 }
 
 function moveReadingListTop(url) {
