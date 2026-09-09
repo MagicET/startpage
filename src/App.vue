@@ -37,7 +37,7 @@ function deleteReadingList(url) {
 }
 
 function moveReadingListTop(url) {
-  deleteReadingList(url);
+  readingLists.value = readingLists.value.filter((readingList) => readingList != url);
   readingLists.value.splice(0, 0, url);
   saveReadingLists();
 }
