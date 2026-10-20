@@ -1,10 +1,10 @@
-var express = require('express');
-var history = require('connect-history-api-fallback');
+import history from 'connect-history-api-fallback'
+import express from 'express'
 
 var app = express();
-app.use(history());
-var serveStatic = require('serve-static');
-app.use(serveStatic(__dirname + "/dist"));
-var port = process.env.PORT || 8080;
-app.listen(port);
-console.log('server started '+ port);
+const server = app
+  .use(history())
+  .use(express.static('dist'))
+  .listen(3000, () => {
+    console.log('Node.js is listening to PORT:' + server.address().port)
+  });
