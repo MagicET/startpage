@@ -55,6 +55,22 @@
         column-gap: 1em;
         row-gap: 1em;
     }
+    .copyButtons {
+        button.clicked {
+            font-variation-settings:
+                'FILL' 1,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24;
+        }
+        
+        button span {
+            padding: 0;
+            margin-right: 0.2em;
+            vertical-align: baseline;
+            font-size: 1.4em;
+        }
+    }
 </style>
 
 <template>
@@ -64,10 +80,22 @@
             <div class="typeBox">
                 <label>urlBox</label>
                 <input type="text" v-model="urlBox" @input="updateUrlBox">
-                <label>readingLists</label>
-                <input type="text" v-model="readingLists" @input="updateReadingLists">
-                <label>bookmarks</label>
-                <input type="text" v-model="bookmarks" @input="updateBookmarks">
+                <label>
+                    readingLists
+                    <div class="copyButtons">
+                        <button @click="copyReadingLists"><span class="material-symbols-outlined">content_copy</span></button>
+                        <button @click="pasteReadingLists"><span class="material-symbols-outlined">content_paste</span></button>
+                    </div>
+                </label>
+                <textarea rows="4" v-model="readingLists" @input="updateReadingLists"></textarea>
+                <label>
+                    bookmarks
+                    <div class="copyButtons">
+                        <button @click="copyBookmarks"><span class="material-symbols-outlined">content_copy</span></button>
+                        <button @click="pasteBookmarks"><span class="material-symbols-outlined">content_paste</span></button>
+                    </div>
+                </label>
+                <textarea rows="4" v-model="bookmarks" @input="updateBookmarks"></textarea>
             </div>
         </div>
     </div>
