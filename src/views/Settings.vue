@@ -1,24 +1,26 @@
 <script setup>
-    import { ref } from 'vue'
+    import { inject, ref } from 'vue'
     import { RouterLink } from 'vue-router';
+
+    const { loadUrlBox, loadReadingLists, loadBookmarks } = inject('loaders');
 
     const urlBox = ref("")
     const readingLists = ref("")
     const bookmarks = ref("")
 
-    function loadUrlBox() {
+    function loadUrlBoxString() {
         const storage = localStorage.getItem("urlBox")
         if(storage) {
             urlBox.value = storage
         }
     }
-    function loadReadingLists() {
+    function loadReadingListsString() {
         const storage = localStorage.getItem("readingLists")
         if(storage) {
             readingLists.value = storage
         }
     }
-    function loadBookmarks() {
+    function loadBookmarksString() {
         const storage = localStorage.getItem("bookmarks")
         if(storage) {
             bookmarks.value = storage
@@ -27,55 +29,20 @@
 
     function updateUrlBox() {
         localStorage.setItem("urlBox", urlBox.value)
+        loadUrlBox()
     }
     function updateReadingLists() {
         localStorage.setItem("readingLists", readingLists.value)
+        loadReadingLists()
     }
     function updateBookmarks() {
         localStorage.setItem("bookmarks", bookmarks.value)
+        loadBookmarks()
     }
 
-    async function copyReadingLists() {
-        await navigator.clipboard.writeText(readingLists.value);
-    }
-
-    async function pasteReadingLists() {
-        if(confirm("Do you want to overwrite the reading lists?")) {
-            navigator.clipboard
-            .readText()
-            .then((clipText) => {
-                console.log(clipText);
-                readingLists.value = clipText;
-                updateReadingLists();
-            })
-            .catch(() => {
-                console.error("Error copying clipboard")
-            });
-        }
-    }
-
-    async function copyBookmarks() {
-        await navigator.clipboard.writeText(bookmarks.value);
-    }
-
-    async function pasteBookmarks() {
-        if(confirm("Do you want to overwrite the bookmarks?")) {
-            navigator.clipboard
-            .readText()
-            .then((clipText) => {
-                console.log(clipText);
-                bookmarks.value = clipText;
-                updateBookmarks();
-            })
-            .catch(() => {
-                console.error("Error copying clipboard")
-            });;
-        }
-    }
-
-    loadUrlBox()
-    loadReadingLists()
-    loadBookmarks()
+    loadUrlBoxString()
+    loadReadingListsString()
+    loadBookmarksString()
 </script>
 
 <style scoped>

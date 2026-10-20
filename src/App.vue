@@ -33,10 +33,11 @@ function addReadingList(url) {
 function deleteReadingList(url) {
   readingLists.value = readingLists.value.filter((readingList) => readingList != url);
   saveReadingLists();
+  addHistory(url);
 }
 
 function moveReadingListTop(url) {
-  deleteReadingList(url);
+  readingLists.value = readingLists.value.filter((readingList) => readingList != url);
   readingLists.value.splice(0, 0, url);
   saveReadingLists();
 }
@@ -103,6 +104,12 @@ provide('bookmarks', {
   changeBookmark,
   deleteBookmark
 });
+
+provide('loaders', {
+  loadUrlBox,
+  loadReadingLists,
+  loadBookmarks
+})
 
 const histories = ref([]);
 

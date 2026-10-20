@@ -44,7 +44,7 @@ const isReadingListUnpushable = computed(() => {
   return result;
 })
 
-const { bookmarks, addBookmark, deleteBookmark } = inject("bookmarks");
+const { bookmarks, setBookmark, deleteBookmark } = inject("bookmarks");
 
 const isBookmarkUnpushable = computed(() => {
   let result = urlBox.value == ""

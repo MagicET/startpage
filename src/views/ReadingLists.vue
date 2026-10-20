@@ -50,7 +50,7 @@ const { readingLists, addReadingList, deleteReadingList, moveReadingListTop } = 
     <UrlBar></UrlBar>
     <div class="readingLists">
         <div v-for="readingList in readingLists" :key="readingList" class="readingList">
-            <a :href="readingList" @click="moveReadingListTop(readingList)">{{readingList}}</a>
+            <a :href="readingList" @click="moveReadingListTop(readingList)">{{decodeURI(readingList)}}</a>
             <button @click="deleteReadingList(readingList)"><span class="material-symbols-outlined">
                 delete
             </span></button>
