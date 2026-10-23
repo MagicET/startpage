@@ -1,5 +1,39 @@
-<svg xmlns="http://www.w3.org/2000/svg" height="19px" viewBox="0 -960 960 960" width="20px" fill="#000">
-<style>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   height="20"
+   viewBox="0 -960 960 1010.5263"
+   width="20"
+   fill="#000000"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="favicon_star.svg"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="24.583215"
+     inkscape:cx="4.1898506"
+     inkscape:cy="9.8034368"
+     inkscape:window-width="1512"
+     inkscape:window-height="949"
+     inkscape:window-x="0"
+     inkscape:window-y="33"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg1" />
+  <style
+     id="style1">
     path {
         fill: #000;
     }
@@ -9,4 +43,7 @@
         }
     }
 </style>
-<path d="m354-287 126-76 126 77-33-144 111-96-146-13-58-136-58 135-146 13 111 97-33 143ZM233-120l65-281L80-590l288-25 112-265 112 265 288 25-218 189 65 281-247-149-247 149Zm247-350Z"/></svg>
+  <path
+     d="m 354,-262.29003 126,-76 126,77 -33,-144 111,-96 -146,-13 -58,-136 -58,135 -146,13 111,97 z m -121,167.000005 65,-281.000005 -218.000001,-189 288.000001,-25 112,-265 112,265 288,25 -218,189 65,281.000005 L 480,-244.29003 Z M 480,-445.29003 Z"
+     id="path1" />
+</svg>
